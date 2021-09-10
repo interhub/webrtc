@@ -1,0 +1,26 @@
+{
+  "name": "webrtc2021",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "server:start": "ts-node server.ts",
+    "server:dev": "nodemon server.ts",
+    "client:build": "parcel client.ts --out-dir ./public",
+    "client:build:watch": "parcel build client.ts --out-dir ./public"
+  },
+  "dependencies": {
+    "@types/node": "^16.9.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "peer": "^0.6.1",
+    "peerjs": "^1.3.2",
+    "regenerator-runtime": "^0.13.9",
+    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.2.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.2"
+  }
+}

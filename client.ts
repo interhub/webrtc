@@ -61,33 +61,34 @@ const setUpLoginButton = () => {
     body.appendChild(btn)
 }
 
-setUpLoginButton()
+peer.on('open', () => {
+    console.log(peer.id, 'my peer id')
+    setUpLoginButton()
+})
 
-const startApp = async () => {
-
-    const getMediaStream = async (): Promise<MediaStream> => {
-        return new Promise((ok) => {
-            //@ts-ignore
-            const getUserMedia = navigator?.getUserMedia || navigator?.mediaDevices?.getUserMedia || navigator?.getUserMedia || navigator?.webkitGetUserMedia || navigator?.mozGetUserMedia || navigator?.msGetUserMedia
-            getUserMedia({video: true, audio: false}, function (stream: MediaStream) {
-                ok(stream)
-            })
-        })
-    }
-
-
-    getMediaStream().then((stream) => {
-        ready_stream = stream
-        setUpVideoStream(stream)
-    })
-
-    peer.on('call', function (call) {
-        call.answer(ready_stream) // Answer the call with an A/V stream.
-        call.on('stream', function (remoteStream) {
-            console.log(remoteStream, 'remoteStream 2')
-            setUpVideoStream(remoteStream)
+const getMediaStream = async (): Promise<MediaStream> => {
+    return new Promise((ok) => {
+        //@ts-ignore
+        const getUserMedia = navigator?.getUserMedia || navigator?.mediaDevices?.getUserMedia || navigator?.webkitGetUserMedia || navigator?.mozGetUserMedia || navigator?.msGetUserMedia
+        getUserMedia({video: true, audio: false}, function (stream: MediaStream) {
+            ok(stream)
+        }, (err) => {
+            console.log(err, 'err get user media')
         })
     })
 }
 
-startApp()
+getMediaStream().then((stream) => {
+    console.log(stream, 'stream')
+    ready_stream = stream
+    setUpVideoStream(stream)
+})
+
+peer.on('call', function (call) {
+    call.answer(ready_stream) // Answer the call with an A/V stream.
+    call.on('stream', function (remoteStream) {
+        console.log(remoteStream, 'remoteStream 2')
+        setUpVideoStream(remoteStream)
+    })
+})
+

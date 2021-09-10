@@ -8689,67 +8689,55 @@ var setUpLoginButton = function setUpLoginButton() {
   body.appendChild(btn);
 };
 
-setUpLoginButton();
+peer.on('open', function () {
+  console.log(peer.id, 'my peer id');
+  setUpLoginButton();
+});
 
-var startApp = function startApp() {
-  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var getMediaStream;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+var getMediaStream = function getMediaStream() {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context.prev = _context.next) {
           case 0:
-            getMediaStream = function getMediaStream() {
-              return __awaiter(void 0, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-                return regeneratorRuntime.wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        return _context.abrupt("return", new Promise(function (ok) {
-                          var _a; //@ts-ignore
+            return _context.abrupt("return", new Promise(function (ok) {
+              var _a; //@ts-ignore
 
 
-                          //@ts-ignore
-                          var getUserMedia = (navigator === null || navigator === void 0 ? void 0 : navigator.getUserMedia) || ((_a = navigator === null || navigator === void 0 ? void 0 : navigator.mediaDevices) === null || _a === void 0 ? void 0 : _a.getUserMedia) || (navigator === null || navigator === void 0 ? void 0 : navigator.getUserMedia) || (navigator === null || navigator === void 0 ? void 0 : navigator.webkitGetUserMedia) || (navigator === null || navigator === void 0 ? void 0 : navigator.mozGetUserMedia) || (navigator === null || navigator === void 0 ? void 0 : navigator.msGetUserMedia);
-                          getUserMedia({
-                            video: true,
-                            audio: false
-                          }, function (stream) {
-                            ok(stream);
-                          });
-                        }));
-
-                      case 1:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, _callee);
-              }));
-            };
-
-            getMediaStream().then(function (stream) {
-              ready_stream = stream;
-              setUpVideoStream(stream);
-            });
-            peer.on('call', function (call) {
-              call.answer(ready_stream); // Answer the call with an A/V stream.
-
-              call.on('stream', function (remoteStream) {
-                console.log(remoteStream, 'remoteStream 2');
-                setUpVideoStream(remoteStream);
+              //@ts-ignore
+              var getUserMedia = (navigator === null || navigator === void 0 ? void 0 : navigator.getUserMedia) || ((_a = navigator === null || navigator === void 0 ? void 0 : navigator.mediaDevices) === null || _a === void 0 ? void 0 : _a.getUserMedia) || (navigator === null || navigator === void 0 ? void 0 : navigator.webkitGetUserMedia) || (navigator === null || navigator === void 0 ? void 0 : navigator.mozGetUserMedia) || (navigator === null || navigator === void 0 ? void 0 : navigator.msGetUserMedia);
+              getUserMedia({
+                video: true,
+                audio: false
+              }, function (stream) {
+                ok(stream);
+              }, function (err) {
+                console.log(err, 'err get user media');
               });
-            });
+            }));
 
-          case 3:
+          case 1:
           case "end":
-            return _context2.stop();
+            return _context.stop();
         }
       }
-    }, _callee2);
+    }, _callee);
   }));
 };
 
-startApp();
+getMediaStream().then(function (stream) {
+  console.log(stream, 'stream');
+  ready_stream = stream;
+  setUpVideoStream(stream);
+});
+peer.on('call', function (call) {
+  call.answer(ready_stream); // Answer the call with an A/V stream.
+
+  call.on('stream', function (remoteStream) {
+    console.log(remoteStream, 'remoteStream 2');
+    setUpVideoStream(remoteStream);
+  });
+});
 },{"peerjs":"node_modules/peerjs/dist/peerjs.min.js","regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","socket.io-client":"node_modules/socket.io-client/build/index.js"}],"../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -8778,7 +8766,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59689" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49182" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

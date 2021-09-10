@@ -6,8 +6,8 @@
   "scripts": {
     "server:start": "ts-node server.ts",
     "server:dev": "nodemon server.ts",
-    "client:build": "parcel client.ts --out-dir ./public",
-    "client:build:watch": "parcel build client.ts --out-dir ./public"
+    "client:build": "parcel build client.ts --out-dir ./public",
+    "client:dev": "parcel client.ts --out-dir ./public"
   },
   "dependencies": {
     "@types/node": "^16.9.1",
